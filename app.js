@@ -41,6 +41,9 @@ var firstAndPike = {
     var h2Element = document.createElement('h2');
     h2Element.textContent = this.name;
     displayNameUL.appendChild(h2Element);
+    var pElement = document.createElement('p');
+    pElement.textContent = 'Customer Data: Minimum:' + this.minCustPerHour + '/Maximum:' + this.maxCustPerHour + '/Average:' + this.averageSalesPerHour;
+    displayNameUL.appendChild(pElement);
     for (var i = 0; i < this.randomCookiePerHour.length; i++){
       var liElement = document.createElement('li');
       liElement.textContent = hours[i] + ': ' + this.randomCookiePerHour[i];
@@ -112,6 +115,9 @@ var seatacAirport = {
     var h2Element = document.createElement('h2');
     h2Element.textContent = this.name;
     displayNameUL.appendChild(h2Element);
+    var pElement = document.createElement('p');
+    pElement.textContent = 'Customer Data: Minimum:' + this.minCustPerHour + '/Maximum:' + this.maxCustPerHour + '/Average:' + this.averageSalesPerHour;
+    displayNameUL.appendChild(pElement);
     for (var i = 0; i < this.randomCookiePerHour.length; i++){
       var liElement = document.createElement('li');
       liElement.textContent = hours[i] + ': ' + this.randomCookiePerHour[i];
@@ -178,6 +184,9 @@ var seattleCenter = {
     var h2Element = document.createElement('h2');
     h2Element.textContent = this.name;
     displayNameUL.appendChild(h2Element);
+    var pElement = document.createElement('p');
+    pElement.textContent = 'Customer Data: Minimum:' + this.minCustPerHour + '/Maximum:' + this.maxCustPerHour + '/Average:' + this.averageSalesPerHour;
+    displayNameUL.appendChild(pElement);
     for (var i = 0; i < this.randomCookiePerHour.length; i++){
       var liElement = document.createElement('li');
       liElement.textContent = hours[i] + ': ' + this.randomCookiePerHour[i];
@@ -244,6 +253,9 @@ var capitolHill = {
     var h2Element = document.createElement('h2');
     h2Element.textContent = this.name;
     displayNameUL.appendChild(h2Element);
+    var pElement = document.createElement('p');
+    pElement.textContent = 'Customer Data: Minimum:' + this.minCustPerHour + '/Maximum:' + this.maxCustPerHour + '/Average:' + this.averageSalesPerHour;
+    displayNameUL.appendChild(pElement);
     for (var i = 0; i < this.randomCookiePerHour.length; i++){
       var liElement = document.createElement('li');
       liElement.textContent = hours[i] + ': ' + this.randomCookiePerHour[i];
@@ -310,6 +322,9 @@ var alki = {
     var h2Element = document.createElement('h2');
     h2Element.textContent = this.name;
     displayNameUL.appendChild(h2Element);
+    var pElement = document.createElement('p');
+    pElement.textContent = 'Customer Data: Minimum:' + this.minCustPerHour + '/Maximum:' + this.maxCustPerHour + '/Average:' + this.averageSalesPerHour;
+    displayNameUL.appendChild(pElement);
     for (var i = 0; i < this.randomCookiePerHour.length; i++){
       var liElement = document.createElement('li');
       liElement.textContent = hours[i] + ': ' + this.randomCookiePerHour[i];
