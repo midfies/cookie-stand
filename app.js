@@ -29,6 +29,7 @@ function CookieStore(name, min, max, avg){
     }
     return;
   },
+
   this.calculateRandomCookie = function() {
     this.calculateRandomCust();
     for (var i = 0; i < hours.length; i++){
@@ -36,6 +37,7 @@ function CookieStore(name, min, max, avg){
     }
     return;
   },
+
   this.calculateTotalCookies = function() {
     this.calculateRandomCookie();
     for (var i = 0; i < hours.length; i++){
@@ -43,6 +45,24 @@ function CookieStore(name, min, max, avg){
     }
     return;
   },
+
+  this.render = function(cookieTable) {
+    this.calculateTotalCookies();
+    var rowElement = document.createElement('tr');
+    var dataElement = document.createElement('td');
+    dataElement.textContent = this.name;
+    rowElement.appendChild(dataElement);
+    for(var i = 0; i < hours.length; i++){
+      dataElement = document.createElement('td');
+      dataElement.textContent = this.randomCookiePerHour[i];
+      rowElement.appendChild(dataElement);
+    }
+    dataElement = document.createElement('td');
+    dataElement.textContent = this.totalCookies;
+    rowElement.appendChild(dataElement);
+    cookieTable.appendChild(rowElement);
+  };
+
   // this.displayAll = function() {
   //   this.calculateTotalCookies();
   //   this.nameUL = this.name.replace(/\s/g,'') + 'UL';
@@ -64,22 +84,6 @@ function CookieStore(name, min, max, avg){
   //   displayNameUL.appendChild(liElement);
   // };
 
-  this.render = function(cookieTable) {
-    this.calculateTotalCookies();
-    var rowElement = document.createElement('tr');
-    var dataElement = document.createElement('td');
-    dataElement.textContent = this.name;
-    rowElement.appendChild(dataElement);
-    for(var i = 0; i < hours.length; i++){
-      dataElement = document.createElement('td');
-      dataElement.textContent = this.randomCookiePerHour[i];
-      rowElement.appendChild(dataElement);
-    }
-    dataElement = document.createElement('td');
-    dataElement.textContent = this.totalCookies;
-    rowElement.appendChild(dataElement);
-    cookieTable.appendChild(rowElement);
-  };
   // this.setMin = function(newMin) {
   //   this.minCustPerHour = newMin;
   // };
@@ -91,8 +95,11 @@ function CookieStore(name, min, max, avg){
   // };
   store.push(this);
 }
+// END OF COOKIE STORE CONSTRUCTOR----------------------------------------------
+
 function cookieTableJS() {
   var cookieTable = document.getElementById('cookieStoreJS');
+
   function makeHeaderRow() {
     var rowElement = document.createElement('tr');
     var headElement = document.createElement('th');
