@@ -1,3 +1,4 @@
+/* Big Picture Stuff */
 *{
   margin: 0;
   padding: 0;
@@ -7,6 +8,7 @@ body{
   background-color: #E0C778;
 }
 
+/* Header Up Top */
 header {
   font-family: 'Ubuntu', sans-serif;
   text-align: center;
@@ -58,7 +60,7 @@ header nav li{
   height: auto;
   transform: rotateY(180deg);
 }
-
+/* Main Content Stuff */
 #intro{
   background-color: #A74826;
   font-size: 2em;
