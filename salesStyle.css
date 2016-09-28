@@ -31,12 +31,14 @@ body div h2{
   text-align: center;
   margin: 0;
   padding: 0;
+  color: white;
 }
 
 body div p{
   text-align: center;
   font-weight: bold;
   background-color: #777445;
+  color: white;
 }
 body div ul{
   box-sizing: border-box;
@@ -54,6 +56,24 @@ body div ul li{
   padding-left: 2px;
 }
 
+#cookieStoreJS {
+
+}
+
+table, td {
+	border: 1px solid black;
+  margin: 1% auto;
+}
+
+td {
+	padding: 10px;
+	border-radius: 15px;
+}
+
+th {
+	background-color: #A74826;
+	color: white;
+}
 
 
 
