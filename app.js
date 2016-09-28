@@ -3,7 +3,9 @@ var hours = ['6AM','7AM','8AM','9AM','10AM','11AM','12PM','1PM','2PM','3PM','4PM
 var allLocations = [];
 var hourlyTotals = Array(hours.length).fill(0);
 var grandTotal = 0;
+
 var cookieTable = document.getElementById('cookieStoreJS');
+var addLocationForm = document.getElementById('addLocationForm');
 
 new CookieStore('First and Pike', 23, 65, 6.3);
 new CookieStore('Seatac Airport', 3, 24, 1.2);
@@ -53,7 +55,6 @@ function CookieStore(name, min, max, avg){
   },
 
   this.render = function() {
-    this.calculateTotalCookies();
     var rowElement = document.createElement('tr');
     var dataElement = document.createElement('td');
     dataElement.textContent = this.name;
@@ -85,9 +86,17 @@ function CookieStore(name, min, max, avg){
     return;
   };
 
-  this.displayAll = function() {
-    this.nameUL = this.name.replace(/\s/g,'') + 'UL';
-    //console.log(this);
+  this.displayTossers = function() {
+    this.calculaterTossers();
+    if (this.nameUL === 'newrow'){
+      this.nameUL = (this.name.replace(/\s/g,'') + 'ul').toLowerCase();
+      var ulElement = document.createElement('ul');
+      ulElement.setAttribute('id',this.nameUL);
+      var element = document.getElementById('newrow');
+      element.appendChild(ulElement);
+    }
+    this.nameUL = this.name.replace(/\s/g,'') + 'ul';
+    this.nameUL = this.nameUL.toLowerCase();
     var displayNameUL = document.getElementById(this.nameUL);
     var h2Element = document.createElement('h2');
     h2Element.textContent = this.name;
@@ -102,66 +111,88 @@ function CookieStore(name, min, max, avg){
     }
   };
 
-  // this.setMin = function(newMin) {
-  //   this.minCustPerHour = newMin;
-  // };
-  // this.setMax = function(newMax) {
-  //   this.maxCustPerHour = newMax;
-  // };
-  // this.setAverage = function(newAverage) {
-  //   this.averageCookiesPerCust = newAverage;
-  // };
+  this.addNewLocation = function() {
+    return;
+  };
   allLocations.push(this);
 }
 // END OF COOKIE STORE CONSTRUCTOR----------------------------------------------
 
-function cookieTableJS() {
-
-
-  function makeHeaderRow() {
-    var rowElement = document.createElement('tr');
-    var headElement = document.createElement('th');
-    headElement.textContent = 'Location';
-    rowElement.appendChild(headElement);
-    for (var i = 0; i < hours.length; i++){
-      headElement = document.createElement('th');
-      headElement.textContent = hours[i];
-      rowElement.appendChild(headElement);
-    }
+function makeHeaderRow() {
+  var rowElement = document.createElement('tr');
+  var headElement = document.createElement('th');
+  headElement.textContent = 'Location';
+  rowElement.appendChild(headElement);
+  for (var i = 0; i < hours.length; i++){
     headElement = document.createElement('th');
-    headElement.textContent = 'Total';
+    headElement.textContent = hours[i];
     rowElement.appendChild(headElement);
-    cookieTable.appendChild(rowElement);
   }
+  headElement = document.createElement('th');
+  headElement.textContent = 'Total';
+  rowElement.appendChild(headElement);
+  cookieTable.appendChild(rowElement);
+}
 
-  function makeTotalRow() {
-    var rowElement = document.createElement('tr');
-    var dataElement = document.createElement('td');
-    dataElement.textContent = 'Total';
-    rowElement.appendChild(dataElement);
-    for (var i = 0; i < hours.length; i++){
-      for (var j = 0; j < allLocations.length; j++){
-        hourlyTotals[i] += allLocations[j].randomCookiePerHour[i];
-      }
-      dataElement = document.createElement('td');
-      dataElement.textContent = hourlyTotals[i];
-      rowElement.appendChild(dataElement);
-    }
-    for (i = 0; i < allLocations.length; i++){
-      grandTotal += allLocations[i].totalCookies;
+function makeTotalRow() {
+  var rowElement = document.createElement('tr');
+  var dataElement = document.createElement('td');
+  dataElement.textContent = 'Total';
+  rowElement.appendChild(dataElement);
+  for (var i = 0; i < hours.length; i++){
+    for (var j = 0; j < allLocations.length; j++){
+      hourlyTotals[i] += allLocations[j].randomCookiePerHour[i];
     }
     dataElement = document.createElement('td');
-    dataElement.textContent = grandTotal;
+    dataElement.textContent = hourlyTotals[i];
     rowElement.appendChild(dataElement);
-    cookieTable.appendChild(rowElement);
   }
-
-  makeHeaderRow();
-  for (var i = 0; i < allLocations.length; i++){ allLocations[i].render(); }
-  makeTotalRow();
-  for (var j = 0;j < allLocations.length;j++){
-    allLocations[j].calculaterTossers();
-    allLocations[j].displayAll();
+  for (i = 0; i < allLocations.length; i++){
+    grandTotal += allLocations[i].totalCookies;
   }
+  dataElement = document.createElement('td');
+  dataElement.textContent = grandTotal;
+  rowElement.appendChild(dataElement);
+  cookieTable.appendChild(rowElement);
 }
-cookieTableJS();
+
+
+// Event handling for add location form ----------------------------------------
+function handleAddLocation(event){
+  event.preventDefault();
+  if (!event.target.newLocation.value || !event.target.minimum.value || !event.target.maximum.value || !event.target.average.value){
+    return alert('Must fill in all values');
+  }
+  var newLoc = event.target.newLocation.value;
+  var newMin = parseInt(event.target.minimum.value);
+  var newMax = parseInt(event.target.maximum.value);
+  var newAvg = parseInt(event.target.average.value);
+
+  var newLocation = new CookieStore(newLoc, newMin, newMax, newAvg);
+  event.target.newLocation.value = null;
+  event.target.minimum.value = null;
+  event.target.maximum.value = null;
+  event.target.average.value = null;
+
+  cookieTable.deleteRow(cookieTable.rows.length - 1);
+  newLocation.calculateTotalCookies();
+  newLocation.render();
+  hourlyTotals = Array(hours.length).fill(0);
+  grandTotal = 0;
+  makeTotalRow();
+
+  newLocation.nameUL = 'newrow';
+
+  newLocation.displayTossers();
+}
+addLocationForm.addEventListener('submit', handleAddLocation);
+
+// Code to make things Gooooooooo!!---------------------------------------------
+makeHeaderRow();
+for (var i = 0; i < allLocations.length; i++){
+  allLocations[i].calculateTotalCookies();
+  allLocations[i].render(); }
+makeTotalRow();
+for (var j = 0;j < allLocations.length;j++){
+  allLocations[j].displayTossers();
+}
