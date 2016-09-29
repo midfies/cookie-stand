@@ -175,11 +175,12 @@ function handleAddLocation(event){
   if (!event.target.newLocation.value[0].match(alphaExp)){
     return alert('Location must start with a letter');
   }
-  newLocation = event.target.newLocation.value;
+  var isNew = true;
   for(var i = 0; i < allLocations.length;i++){
     if (allLocations[i].nameInLower === (event.target.newLocation.value.replace(/\s/g,'').toLowerCase())){
       cookieTable.deleteRow(i + 1);
       allLocations.splice(i,1);
+      isNew = false;
     }
   }
   var newLoc = event.target.newLocation.value;
@@ -200,7 +201,9 @@ function handleAddLocation(event){
   grandTotal = 0;
   makeTotalRow();
 
-  newLocation.nameUL = 'newrow';
+  if (isNew === true){
+    newLocation.nameUL = 'newrow';
+  }
   newLocation.displayTossers();
 }
 addLocationForm.addEventListener('submit', handleAddLocation);
