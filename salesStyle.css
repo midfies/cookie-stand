@@ -21,6 +21,9 @@ header nav{
   list-style: none;
   padding-bottom: 10px;
 }
+#explain{
+  margin-left: 10px;
+}
 
 body div{
   width: auto;
@@ -29,8 +32,6 @@ body div{
 body div h2{
   background-color: #A74826;
   text-align: center;
-  margin: 0;
-  padding: 0;
   color: white;
 }
 
@@ -55,19 +56,28 @@ body div ul li{
   border: 1px solid #A74826;
   padding-left: 2px;
 }
-
-#cookieStoreJS {
-
+li:hover{
+  background-color: #a74826;
+  color: white;
 }
 
-table, td {
-	border: 1px solid black;
+table{
+  border-radius: 10%;
+  border: 40px ridge #777445;
+  font-family: monospace;
+  font-size: 1.3em;
   margin: 1% auto;
+}
+tr:hover {
+  background-color: #A74826;
+  color: white;
+  font-weight: bold;
 }
 
 td {
 	padding: 10px;
-	border-radius: 15px;
+  border: 1px solid black;
+  margin: 1% auto;
 }
 
 th {
@@ -75,6 +85,33 @@ th {
 	color: white;
 }
 
+.locNameTable{
+  background-color: #777445;
+}
+
+#addLocationForm{
+  width: 60%;
+  margin: 2% auto;
+}
+
+input{
+  width: 48%;
+}
+label{
+  display: inline-block;
+  width: 240px;
+  text-align: right;
+  margin: 5px 0;
+}
+
+fieldset{
+  text-align: center;
+  border: 5px solid #A74826;
+}
+
+legend{
+  font-size: 2em;
+}
 
 
 #A74826

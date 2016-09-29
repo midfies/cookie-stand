@@ -22,6 +22,7 @@ console.log(allLocations);
 
 function CookieStore(name, min, max, avg){
   this.name = name;
+  this.nameInLower = (this.name.replace(/\s/g,'')).toLowerCase();
   this.minCustPerHour = min;
   this.maxCustPerHour = max;
   this.averageCookiesPerCust = avg;
@@ -58,6 +59,7 @@ function CookieStore(name, min, max, avg){
     var rowElement = document.createElement('tr');
     var dataElement = document.createElement('td');
     dataElement.textContent = this.name;
+    dataElement.setAttribute('class', 'locNameTable');
     rowElement.appendChild(dataElement);
     for(var i = 0; i < hours.length; i++){
       dataElement = document.createElement('td');
@@ -66,6 +68,7 @@ function CookieStore(name, min, max, avg){
     }
     dataElement = document.createElement('td');
     dataElement.textContent = this.totalCookies;
+    dataElement.setAttribute('class', 'locNameTable');
     rowElement.appendChild(dataElement);
     cookieTable.appendChild(rowElement);
   };
@@ -106,14 +109,11 @@ function CookieStore(name, min, max, avg){
     displayNameUL.appendChild(pElement);
     for (var i = 0; i < this.randomCookiePerHour.length; i++){
       var liElement = document.createElement('li');
-      liElement.textContent = hours[i] + ': ' + this.randomCustPerHour[i] + ' customers estimated, Will need ' + this.tosserPerHour[i] + ' workers.';
+      liElement.textContent = hours[i] + ': Estimated Customers: ' + this.randomCustPerHour[i] + ' Required Workers ' + this.tosserPerHour[i];
       displayNameUL.appendChild(liElement);
     }
   };
 
-  this.addNewLocation = function() {
-    return;
-  };
   allLocations.push(this);
 }
 // END OF COOKIE STORE CONSTRUCTOR----------------------------------------------
@@ -138,6 +138,7 @@ function makeTotalRow() {
   var rowElement = document.createElement('tr');
   var dataElement = document.createElement('td');
   dataElement.textContent = 'Total';
+  dataElement.setAttribute('class', 'locNameTable');
   rowElement.appendChild(dataElement);
   for (var i = 0; i < hours.length; i++){
     for (var j = 0; j < allLocations.length; j++){
@@ -152,6 +153,7 @@ function makeTotalRow() {
   }
   dataElement = document.createElement('td');
   dataElement.textContent = grandTotal;
+  dataElement.setAttribute('class', 'locNameTable');
   rowElement.appendChild(dataElement);
   cookieTable.appendChild(rowElement);
 }
@@ -162,6 +164,23 @@ function handleAddLocation(event){
   event.preventDefault();
   if (!event.target.newLocation.value || !event.target.minimum.value || !event.target.maximum.value || !event.target.average.value){
     return alert('Must fill in all values');
+  }
+  if(isNaN(event.target.minimum.value) || isNaN(event.target.maximum.value) || isNaN(event.target.average.value)){
+    return alert('Minimum, Maximum and Average must be a number');
+  }
+  if (event.target.minimum.value > event.target.maximum.value){
+    return alert('Minimum must be smaller than maximum');
+  }
+  var alphaExp = /^[a-zA-Z]+$/;
+  if (!event.target.newLocation.value[0].match(alphaExp)){
+    return alert('Location must start with a letter');
+  }
+  newLocation = event.target.newLocation.value;
+  for(var i = 0; i < allLocations.length;i++){
+    if (allLocations[i].nameInLower === (event.target.newLocation.value.replace(/\s/g,'').toLowerCase())){
+      cookieTable.deleteRow(i + 1);
+      allLocations.splice(i,1);
+    }
   }
   var newLoc = event.target.newLocation.value;
   var newMin = parseInt(event.target.minimum.value);
@@ -182,7 +201,6 @@ function handleAddLocation(event){
   makeTotalRow();
 
   newLocation.nameUL = 'newrow';
-
   newLocation.displayTossers();
 }
 addLocationForm.addEventListener('submit', handleAddLocation);
