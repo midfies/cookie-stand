@@ -5,6 +5,7 @@ var hourlyTotals = Array(hours.length).fill(0);
 var grandTotal = 0;
 
 var cookieTable = document.getElementById('cookieStoreJS');
+var staffingTable = document.getElementById('staffingTable');
 var addLocationForm = document.getElementById('addLocationForm');
 
 new CookieStore('First and Pike', 23, 65, 6.3);
@@ -73,6 +74,21 @@ function CookieStore(name, min, max, avg){
     cookieTable.appendChild(rowElement);
   };
 
+  this.displayStaffing = function() {
+    this.calculaterTossers();
+    var rowElement = document.createElement('tr');
+    var dataElement = document.createElement('td');
+    dataElement.textContent = this.name;
+    dataElement.setAttribute('class', 'locNameTable');
+    rowElement.appendChild(dataElement);
+    for(var i = 0; i < hours.length; i++){
+      dataElement = document.createElement('td');
+      dataElement.textContent = this.tosserPerHour[i];
+      rowElement.appendChild(dataElement);
+    }
+    staffingTable.appendChild(rowElement);
+  };
+
   this.calculaterTossers = function() {
     for (var i = 0; i < hours.length; i++){
       if (this.randomCustPerHour[i] > 40){
@@ -89,36 +105,11 @@ function CookieStore(name, min, max, avg){
     return;
   };
 
-  this.displayTossers = function() {
-    this.calculaterTossers();
-    if (this.nameUL === 'newrow'){
-      this.nameUL = (this.name.replace(/\s/g,'') + 'ul').toLowerCase();
-      var ulElement = document.createElement('ul');
-      ulElement.setAttribute('id',this.nameUL);
-      var element = document.getElementById('newrow');
-      element.appendChild(ulElement);
-    }
-    this.nameUL = this.name.replace(/\s/g,'') + 'ul';
-    this.nameUL = this.nameUL.toLowerCase();
-    var displayNameUL = document.getElementById(this.nameUL);
-    var h2Element = document.createElement('h2');
-    h2Element.textContent = this.name;
-    displayNameUL.appendChild(h2Element);
-    var pElement = document.createElement('p');
-    pElement.textContent = 'Customer Data: Minimum:' + this.minCustPerHour + '/Maximum:' + this.maxCustPerHour + '/Average:' + this.averageCookiesPerCust;
-    displayNameUL.appendChild(pElement);
-    for (var i = 0; i < this.randomCookiePerHour.length; i++){
-      var liElement = document.createElement('li');
-      liElement.textContent = hours[i] + ' - Estimated Customers: ' + this.randomCustPerHour[i] + ' / Required Workers: ' + this.tosserPerHour[i];
-      displayNameUL.appendChild(liElement);
-    }
-  };
-
   allLocations.push(this);
 }
 // END OF COOKIE STORE CONSTRUCTOR----------------------------------------------
 
-function makeHeaderRow() {
+function makeHeaderRow(table) {
   var rowElement = document.createElement('tr');
   var headElement = document.createElement('th');
   headElement.textContent = 'Location';
@@ -128,10 +119,12 @@ function makeHeaderRow() {
     headElement.textContent = hours[i];
     rowElement.appendChild(headElement);
   }
-  headElement = document.createElement('th');
-  headElement.textContent = 'Total';
-  rowElement.appendChild(headElement);
-  cookieTable.appendChild(rowElement);
+  if(table === cookieTable){
+    headElement = document.createElement('th');
+    headElement.textContent = 'Total';
+    rowElement.appendChild(headElement);
+  }
+  table.appendChild(rowElement);
 }
 
 function makeTotalRow() {
@@ -175,12 +168,12 @@ function handleAddLocation(event){
   if (!event.target.newLocation.value[0].match(alphaExp)){
     return alert('Location must start with a letter');
   }
-  var isNew = true;
+  var indexOfStore = 0;
   for(var i = 0; i < allLocations.length;i++){
     if (allLocations[i].nameInLower === (event.target.newLocation.value.replace(/\s/g,'').toLowerCase())){
       cookieTable.deleteRow(i + 1);
       allLocations.splice(i,1);
-      isNew = false;
+      indexOfStore = i;
     }
   }
   var newLoc = event.target.newLocation.value;
@@ -194,26 +187,29 @@ function handleAddLocation(event){
   event.target.maximum.value = null;
   event.target.average.value = null;
 
+  console.log(cookieTable);
+  console.log(cookieTable.rows);
+  console.log(cookieTable.rows.length);
+
   cookieTable.deleteRow(cookieTable.rows.length - 1);
+  staffingTable.deleteRow(indexOfStore + 1);
   newLocation.calculateTotalCookies();
   newLocation.render();
+  newLocation.displayStaffing();
   hourlyTotals = Array(hours.length).fill(0);
+  newLocation.tosserPerHour = Array(hours.length).fill(2);
   grandTotal = 0;
   makeTotalRow();
-
-  if (isNew === true){
-    newLocation.nameUL = 'newrow';
-  }
-  newLocation.displayTossers();
 }
 addLocationForm.addEventListener('submit', handleAddLocation);
 
 // Code to make things Gooooooooo!!---------------------------------------------
-makeHeaderRow();
+makeHeaderRow(cookieTable);
 for (var i = 0; i < allLocations.length; i++){
   allLocations[i].calculateTotalCookies();
   allLocations[i].render(); }
 makeTotalRow();
+makeHeaderRow(staffingTable);
 for (var j = 0;j < allLocations.length;j++){
-  allLocations[j].displayTossers();
+  allLocations[j].displayStaffing();
 }
