@@ -2,6 +2,7 @@
 *{
   margin: 0;
   padding: 0;
+  /*outline: 1px dashed red;*/
 }
 
 body{
@@ -10,17 +11,22 @@ body{
 
 /* Header Up Top */
 header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: auto;
   font-family: 'Ubuntu', sans-serif;
   text-align: center;
   background-color: #777445;
   border-bottom: 3px solid black;
-  padding-top: 30px;
+  /*padding-top: 30px;*/
 }
 
 header h1{
   font-size: 4em;
   text-shadow: 0px 0px 6px rgba(255,255,255,0.7);
   padding-bottom: 10px;
+  white-space: nowrap;
 }
 
 header nav{
@@ -61,11 +67,22 @@ header nav li{
   transform: rotateY(180deg);
 }
 /* Main Content Stuff */
-#intro{
+#content{
+  position: static;
+  margin-top: 175px;
+
+}
+section{
   background-color: #A74826;
-  font-size: 2em;
+  border: 15px ridge #777445;
   color: silver;
-  border: 5px solid #777445;
+  border-radius: 5%;
+}
+.spacer{
+  margin: 4%;
+}
+#intro{
+  font-size: 2em;
   border-radius: 10%;
   width: 70%;
   margin: 1% auto;
@@ -78,4 +95,59 @@ body section p{
 }
 body section p::first-letter{
   font-size: 150%;
+}
+section h1{
+  text-align: center;
+}
+
+body section img{
+  box-shadow: 12px 29px 81px 0px rgba(0,0,0,0.75);
+}
+
+#afterIntro{
+  position: relative;
+  z-index: -1;
+}
+
+#decorate{
+  position: absolute;
+  left: 6%;
+  width: 40%;
+}
+
+#merchandise{
+  position: absolute;
+  right: 6%;
+  width: 40%;
+}
+
+.merch{
+  margin: 4% auto 2% auto;
+  text-align: center;
+  font-size: 2em;
+}
+.merch img {
+  margin: 1% auto;
+  width: 50%;
+  border-radius: 5%;
+}
+
+.dec{
+  margin: 4% auto 2% auto;
+  font-size: 2em;
+}
+.dec img{
+  margin: 1% auto;
+  width: 50%;
+  border-radius: 5%;
+}
+
+#family {
+  border-radius: 50%;
+  width: 500px;
+  height: auto;
+}
+
+#chinook{
+  border-radius: 50%;
 }
