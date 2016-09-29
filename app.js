@@ -109,7 +109,7 @@ function CookieStore(name, min, max, avg){
     displayNameUL.appendChild(pElement);
     for (var i = 0; i < this.randomCookiePerHour.length; i++){
       var liElement = document.createElement('li');
-      liElement.textContent = hours[i] + ': Estimated Customers: ' + this.randomCustPerHour[i] + ' Required Workers ' + this.tosserPerHour[i];
+      liElement.textContent = hours[i] + ' - Estimated Customers: ' + this.randomCustPerHour[i] + ' / Required Workers: ' + this.tosserPerHour[i];
       displayNameUL.appendChild(liElement);
     }
   };
