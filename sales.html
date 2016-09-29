@@ -11,19 +11,37 @@
         <li><a href="index.html">Return Home</a></li>
         <li><a href="sales.html">Run Again?</a></li>
       </nav>
-    </header>
-    <p>
+    </header><br/>
+    <p id="explain">
       Below is a simulation of cookie sales per hour in each of our Salmon Cookie locations!
     </p>
+    <br/><hr/>
 
     <table id="cookieStoreJS"></table>
-    <div>
-      <ul id = 'FirstandPikeUL'></ul>
-      <ul id = 'SeatacAirportUL'></ul>
-      <ul id = 'SeattleCenterUL'></ul>
-      <ul id = 'CapitolHillUL'></ul>
-      <ul id = 'AlkiUL'></ul>
+    <div id="newrow">
+      <ul id = "firstandpikeul"></ul>
+      <ul id = "seatacairportul"></ul>
+      <ul id = "seattlecenterul"></ul>
+      <ul id = "capitolhillul"></ul>
+      <ul id = "alkiul"></ul>
     </div>
+
+    <hr />
+
+    <form id="addLocationForm">
+      <fieldset>
+        <legend>Add New Location</legend>
+        <label for="newLocation">Location Name:</label>
+        <input name="newLocation" type="text"/><br/>
+        <label for="minimum">Minimum Customer/Hr: </label>
+        <input name="minimum" type="text"/><br/>
+        <label for="maximum">Maximum Customer/Hr: </label>
+        <input name="maximum" type="text"/><br/>
+        <label for="average">Average Cookie/Customer</label>
+        <input name="average" type="text"/><br/>
+        <button type="submit">Submit</button>
+      </fieldset>
+    </form>
 
     <script src="app.js"></script>
   </body>
