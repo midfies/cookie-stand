@@ -15,12 +15,6 @@ new CookieStore('Capitol Hill', 20, 38, 2.3);
 new CookieStore('Alki', 2, 16, 4.6);
 console.log(allLocations);
 
-// new CookieStore('First and Pike', 23, 65, 6.3);
-// new CookieStore('Seatac Airport', 33, 84, 1.2);
-// new CookieStore('Seattle Center', 41, 278, 3.7);
-// new CookieStore('Capitol Hill', 120, 188, 2.3);
-// new CookieStore('Alki', 65, 116, 4.6);
-
 function CookieStore(name, min, max, avg){
   this.name = name;
   this.nameInLower = (this.name.replace(/\s/g,'')).toLowerCase();
@@ -150,7 +144,6 @@ function makeTotalRow() {
   rowElement.appendChild(dataElement);
   cookieTable.appendChild(rowElement);
 }
-
 
 // Event handling for add location form ----------------------------------------
 function handleAddLocation(event){

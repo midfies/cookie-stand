@@ -6,35 +6,31 @@
 body{
   background-color: #E0C778;
 }
-
+/************************This is header CSS**********************/
 header {
   text-align: center;
   background-color: #777445;
   border-bottom: 3px solid black;
 }
-
 header h1{
   padding-bottom: 10px;
 }
-
 header nav{
   list-style: none;
   padding-bottom: 10px;
 }
+/**********************This is main content CSS*******************/
 #explain{
   margin-left: 10px;
 }
-
 body div{
   width: auto;
 }
-
 body div h2{
   background-color: #A74826;
   text-align: center;
   color: white;
 }
-
 body div p{
   text-align: center;
   font-weight: bold;
@@ -50,7 +46,6 @@ body div ul{
   padding-left: 0;
   border: 2px solid #A74826;
 }
-
 body div ul li{
   list-style: none;
   border: 1px solid #A74826;
@@ -60,7 +55,7 @@ body div ul li:hover{
   background-color: #a74826;
   color: white;
 }
-
+/********************CSS for the tables****************/
 table{
   border-radius: 10%;
   border: 40px ridge #777445;
@@ -73,27 +68,22 @@ tr:hover {
   color: white;
   font-weight: bold;
 }
-
 td {
 	padding: 10px;
   border: 1px solid black;
   margin: 1% auto;
 }
-
 th {
 	background-color: #A74826;
 	color: white;
 }
-
 .locNameTable{
   background-color: #777445;
 }
-
 #addLocationForm{
   width: 60%;
   margin: 2% auto;
 }
-
 form fieldset input{
   width: 48%;
 }
@@ -103,17 +93,13 @@ label{
   text-align: right;
   margin: 5px 0;
 }
-
 fieldset{
   text-align: center;
   border: 5px solid #A74826;
 }
-
 legend{
   font-size: 2em;
 }
-
-
 #A74826
 #E0C778
 #777445
